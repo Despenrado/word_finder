@@ -1,6 +1,7 @@
 import logging
 import logging.config
 
+
 def setup_logger():
     logging.basicConfig(
         level=logging.INFO,
@@ -11,5 +12,6 @@ def setup_logger():
             logging.StreamHandler()
         ]
     )
+
 
 setup_logger()

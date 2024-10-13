@@ -25,7 +25,7 @@ class FileService:
             from app.services.file_services.xlsx_service import XLSXFileService
             return XLSXFileService(self.storage_path, word)
         else:
-            raise FLException(status_code=400 , message='File type not supported')
+            raise FLException(status_code=400, message='File type not supported')
 
 
     async def process_file(self, file: UploadFile, search_word):

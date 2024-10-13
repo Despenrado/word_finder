@@ -6,6 +6,7 @@ logger = logging.getLogger(__name__)
 
 redis = None
 
+
 def connect_redis():
     global redis
     redis = r.Redis(host='redis', port=6379)
@@ -40,5 +41,3 @@ def cache(key_func, serializer, deserializer):
 
         return wrapper
     return decorator
-
-

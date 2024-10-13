@@ -24,6 +24,7 @@ def serialize_result(valid_rows, output_valid_file=None, output_invalid_file=Non
         data["output_invalid_file"] = output_invalid_file
     return json.dumps(data)
 
+
 def deserialize_result(json_data):
     data = json.loads(json_data)
     return bool(data.get("valid_rows", False)), data.get("output_valid_file", None), data.get("output_invalid_file", None)

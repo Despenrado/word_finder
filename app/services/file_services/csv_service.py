@@ -76,4 +76,4 @@ class CSVFileService(BaseFileService):
                 if is_in_invalid_column:
                     invalid_rows.append(row)
 
-        return bool(valid_rows) ,valid_rows, invalid_rows
+        return bool(valid_rows), valid_rows, invalid_rows
