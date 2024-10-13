@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>File Upload Result</title>
+</head>
+<body>
+    <h1>File Upload Result</h1>
+
+    <p><strong>Word "Quantori" exists:</strong> {{ is_word_exists }}</p>
+
+    {% if output_valid_file %}
+        <p><a href="{{ output_valid_file }}">{{ output_valid_file }}</a></p>
+    {% endif %}
+
+    {% if output_valid_file %}
+        <p><a href="{{ output_invalid_file }}">{{ output_invalid_file }}</a></p>
+    {% endif %}
+
+</body>
+</html>
