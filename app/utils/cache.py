@@ -22,6 +22,7 @@ def disconnect_redis():
 def cache(key_func, serializer, deserializer):
     def decorator(func):
         def wrapper(*args, **kwargs):
+
             if redis is None:
                 return func(*args, **kwargs)
 

@@ -8,9 +8,9 @@ from app.utils.md5 import calculate_md5_from_data_and_pattern
 
 
 class TXTFileService(BaseFileService):
-    def __init__(self, word):
-        super().__init__(word)
-        self.chunk_size = 1024 * 1024 # 1Mb
+    def __init__(self, search_word, chunk_size=1024 * 1024):
+        super().__init__(search_word)
+        self.chunk_size = chunk_size # default 1Mb
 
 
     def process_file(self, file: UploadFile) -> Tuple[bool, Optional[str], Optional[str]]:
@@ -20,20 +20,20 @@ class TXTFileService(BaseFileService):
         while chunk := file.file.read(self.chunk_size):
             chunk = buffer + chunk
 
-            if self._is_pattern_exists(chunk.lower(), self.search_word):
+            if self._is_pattern_exists(chunk, self.search_word):
                 found = True
                 break
-            buffer = chunk[-(len(self.search_word) - 1)]
+
+            buffer = chunk[-(len(self.search_word) - 1):]
 
         return found, None, None
 
 
     @cache(key_func=calculate_md5_from_data_and_pattern, serializer=serialize_result, deserializer=deserialize_result)
     def _is_pattern_exists(self, data, pattern): # Rabin Karp algorithm
-        text = ''
         if isinstance(data, bytes):
-            text = data.decode("utf-8")
-        text = text.lower()
+            data = data.decode("utf-8")
+        text = data.lower()
 
         n = len(text)
         m = len(pattern)

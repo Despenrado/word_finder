@@ -1,8 +1,6 @@
 import os
-import uuid
 from io import BytesIO
 
-from fastapi import UploadFile
 from openpyxl import load_workbook, Workbook
 
 from app.services.file_services.base_service import serialize_result, deserialize_result
@@ -12,8 +10,8 @@ from app.utils.md5 import calculate_md5_from_data_and_pattern
 
 
 class XLSXFileService(CSVFileService):
-    def __init__(self, storage_path, word):
-        super().__init__(storage_path, word)
+    def __init__(self, storage_path, search_word):
+        super().__init__(storage_path, search_word)
 
 
     def _save_rows_to_file(self, headers, rows, file_name):

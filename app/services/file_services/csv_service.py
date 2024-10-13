@@ -12,8 +12,8 @@ from app.utils.md5 import calculate_md5_from_data_and_pattern
 
 
 class CSVFileService(BaseFileService):
-    def __init__(self, storage_path, word):
-        super().__init__(word)
+    def __init__(self, storage_path, search_word):
+        super().__init__(search_word)
         self.storage_path = storage_path
 
 
