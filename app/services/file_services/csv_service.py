@@ -46,10 +46,6 @@ class CSVFileService(BaseFileService):
         headers = next(reader)
         rows = list(reader)
 
-        return self._process_rows_and_save_results(headers, rows, pattern)
-
-
-    def _process_rows_and_save_results(self, headers, rows, pattern):
         valid_column_index = self._get_column_index(headers, 'Company Name')
         is_word_found, valid_rows, invalid_rows = self._process_rows(rows, valid_column_index, pattern)
 

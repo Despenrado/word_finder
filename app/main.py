@@ -62,13 +62,5 @@ async def upload_file(request: Request, file: UploadFile = File(...), search_wor
     #     logger.error(e.message)
     #     raise HTTPException(status_code=500, detail=str(e))
 
-# @api_router.get("/download/{file_name}")
-# async def download_file(file_name: str):
-#     try:
-#         return FileResponse(path=file_service.get_file_path(file_name), status_code=200, media_type='application/octet-stream')
-#     except FLException as e:
-#         raise HTTPException(status_code=e.status_code, detail=e.message)
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=str(e))
 
 app.include_router(api_router, prefix="/api")

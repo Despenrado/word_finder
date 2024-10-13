@@ -29,6 +29,7 @@ jobs:
       - name: Run flake8
         run: flake8 ./app ./tests --max-line-length 120 --exit-zero
 
+
   test:
     runs-on: ubuntu-latest
 

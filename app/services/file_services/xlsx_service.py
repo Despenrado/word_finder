@@ -34,4 +34,11 @@ class XLSXFileService(CSVFileService):
         headers = [cell.value for cell in work_sheet[1]]
         rows = list(work_sheet.iter_rows(min_row=2, values_only=True))
 
-        return self._process_rows_and_save_results(headers, rows, pattern)
+        valid_column_index = self._get_column_index(headers, 'Company Name')
+        is_word_found, valid_rows, invalid_rows = self._process_rows(rows, valid_column_index, pattern)
+
+        file_uuid = uuid.uuid4()
+        output_valid_file = self._save_rows_to_file(headers, valid_rows, f'valid_{file_uuid}')
+        output_invalid_file = self._save_rows_to_file(headers, invalid_rows, f'invalid_{file_uuid}')
+
+        return is_word_found, output_valid_file, output_invalid_file
