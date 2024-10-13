@@ -1,4 +1,8 @@
+import logging
+
 import redis as r
+
+logger = logging.getLogger(__name__)
 
 redis = None
 
@@ -7,8 +11,9 @@ def connect_redis():
     redis = r.Redis(host='redis', port=6379)
     try:
         redis.ping()
+        logger.info("Redis connection established")
     except Exception as e:
-        print(f"Redis connection error: {e}")
+        logger.error(f"Redis connection error: {e}")
 
 def disconnect_redis():
     redis.close()
