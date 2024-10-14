@@ -1,4 +1,3 @@
-
 class FLException(Exception):
     def __init__(self, message: str, status_code=400):
         self.message = message

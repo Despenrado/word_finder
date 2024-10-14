@@ -6,7 +6,7 @@ You can modify `app/utils/cache.py` to use another redis instance or disable it
 
 ## Runnig tests:
 ```
-PYTHONPATH=. pytest 
+PYTHONPATH=. pytest
 ```
 
 ## Docker

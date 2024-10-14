@@ -9,12 +9,13 @@ redis = None
 
 def connect_redis():
     global redis
-    redis = r.Redis(host='redis', port=6379)
+    redis = r.Redis(host="redis", port=6379)
     try:
         redis.ping()
         logger.info("Redis connection established")
     except Exception as e:
         logger.error(f"Redis connection error: {e}")
+
 
 def disconnect_redis():
     redis.close()
@@ -40,4 +41,5 @@ def cache(key_func, serializer, deserializer):
             return result
 
         return wrapper
+
     return decorator
