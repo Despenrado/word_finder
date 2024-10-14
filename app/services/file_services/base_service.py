@@ -10,14 +10,14 @@ class BaseFileService(ABC):
         self.search_word = search_word.lower()
 
     @abstractmethod
-    def process_file(self, file: UploadFile) -> Tuple[bool, Optional[str], Optional[str]]:
+    def process_file(
+        self, file: UploadFile
+    ) -> Tuple[bool, Optional[str], Optional[str]]:
         pass
 
 
 def serialize_result(valid_rows, output_valid_file=None, output_invalid_file=None):
-    data = {
-        "valid_rows": bool(valid_rows)
-    }
+    data = {"valid_rows": bool(valid_rows)}
     if output_valid_file:
         data["output_valid_file"] = output_valid_file
     if output_invalid_file:
@@ -27,4 +27,8 @@ def serialize_result(valid_rows, output_valid_file=None, output_invalid_file=Non
 
 def deserialize_result(json_data):
     data = json.loads(json_data)
-    return bool(data.get("valid_rows", False)), data.get("output_valid_file", None), data.get("output_invalid_file", None)
+    return (
+        bool(data.get("valid_rows", False)),
+        data.get("output_valid_file", None),
+        data.get("output_invalid_file", None),
+    )
