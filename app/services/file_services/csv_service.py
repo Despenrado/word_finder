@@ -18,10 +18,16 @@ class CSVFileService(BaseFileService):
 
 
     def _get_column_index(self, row, column_name):
+        if row is None:
+            raise FLException(status_code=400, message="Row is None")
         try:
-            return row.index(column_name)
+            idx = row.index(column_name)
+            print(f'===================={idx}')
+            if idx is None:
+                raise FLException(status_code=400, message="Index not found for column")
+            return idx
         except ValueError:
-            FLException(status_code=400, message='Column "Company Name" not found')
+            raise FLException(status_code=400, message='Column {column_name} not found')
 
 
     def _save_rows_to_file(self, headers, rows, file_name):
@@ -43,8 +49,11 @@ class CSVFileService(BaseFileService):
     def _process_file(self, data, pattern):
         reader = csv.reader(data.decode('utf-8').splitlines())
 
-        headers = next(reader)
-        rows = list(reader)
+        try:
+            headers = next(reader)
+            rows = list(reader)
+        except StopIteration:
+            raise FLException(status_code=400, message='Empty file')
 
         valid_column_index = self._get_column_index(headers, 'Company Name')
         is_word_found, valid_rows, invalid_rows = self._process_rows(rows, valid_column_index, pattern)
